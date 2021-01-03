@@ -1,48 +1,71 @@
 {% extends "base/base-template.html" %}
 {% load static %}
 {% block content %}
- 
-  <!--banner-->
-<div class="banner-top">
-	<div class="container">
-		<h3 >Register</h3>
-		<h4><a href="index.html">Home</a><label>/</label>Register</h4>
-		<div class="clearfix"> </div>
+
+<!-- Message Part -->
+{% if messages %}
+<div class="col-md-12">
+	{% for message in messages %}
+
+	{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+	<div class="alert alert-danger alert-dismissible" style="text-align: left;">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
+		<strong>{{message}}</strong>
 	</div>
-</div>
+	{% else %}
+	<div class="alert alert-success alert-dismissible" style="text-align: left;">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close" style="color: crimson!important">&times;</a>
+		<strong>{{message}}</strong>
+	</div>
+	{% endif %}
 
-<!--login-->
+	{% endfor %}
+	{% endif %}
 
+	<!--banner-->
+	<div class="banner-top">
+		<div class="container">
+			<h3>Register</h3>
+			<h4><a href="index.html">Home</a><label>/</label>Register</h4>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+
+	<!--login-->
 	<div class="login">
 		<div class="main-agileits">
-				<div class="form-w3agile form1">
-					<h3>Register</h3>
-					<form action="#" method="post">
-						<div class="key">
+			<div class="form-w3agile form1">
+				<h3>Register</h3>
+				<form method="POST">
+					{% csrf_token %}
+
+					{{register_form}}
+
+					<!-- <div class="key">
 							<i class="fa fa-user" aria-hidden="true"></i>
-							<input  type="text" value="Username" name="Username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Username';}" required="">
+							<input  type="text" value="Username" name="username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Username';}" required="">
 							<div class="clearfix"></div>
 						</div>
 						<div class="key">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
-							<input  type="text" value="Email" name="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+							<input  type="text" value="Email" name="email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
 							<div class="clearfix"></div>
 						</div>
 						<div class="key">
 							<i class="fa fa-lock" aria-hidden="true"></i>
-							<input  type="password" value="Password" name="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
+							<input  type="password" value="Password" name="password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
 							<div class="clearfix"></div>
 						</div>
 						<div class="key">
 							<i class="fa fa-lock" aria-hidden="true"></i>
 							<input  type="password" value="Confirm Password" name="Confirm Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Confirm Password';}" required="">
 							<div class="clearfix"></div>
-						</div>
-						<input type="submit" value="Submit">
-					</form>
-				</div>
-				
+						</div> -->
+					<input type="submit" value="Submit">
+				</form>
 			</div>
-		</div>
 
-		{% endblock %}
+		</div>
+	</div>
+
+	{% endblock %}
